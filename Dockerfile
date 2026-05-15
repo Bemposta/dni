@@ -15,5 +15,6 @@ COPY pesos/*.pt ./
 COPY *.py ./
 COPY *.jpg ./
 
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port 8080"]
+CMD ["python3", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+
 

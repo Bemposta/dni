@@ -12,10 +12,6 @@ app = FastAPI()
 detectorDni = DetectorDni()
 fotoVerify = DniSelfie()
 
-@app.get("/")
-async def root():
-    return {"status": "ok", "mensaje": "Servicio de validación DNI funcionando correctamente"}
-
 @app.post("/imagenes/")
 async def procesar_imagenes(
     fotoDni: UploadFile = File(...),
