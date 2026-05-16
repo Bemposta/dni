@@ -11,9 +11,9 @@ RUN python3 -m pip install --root-user-action=ignore --upgrade pip
 RUN pip install --no-cache-dir --root-user-action=ignore -r requirements.txt
 
 # Copia todos los archivos que terminen en .pt a la carpeta actual (/app)
+COPY *.jpg ./
 COPY pesos/*.pt ./
 COPY *.py ./
-COPY *.jpg ./
 COPY *.html ./
 
 CMD ["python3", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
