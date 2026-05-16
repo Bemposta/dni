@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 import cv2
 from validacionDni import DetectorDni, DniSelfie
 import numpy as np
+import os
 
 """
 Comando para ejecutarlo:
