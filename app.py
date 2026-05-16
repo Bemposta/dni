@@ -12,9 +12,12 @@ app = FastAPI()
 detectorDni = DetectorDni()
 fotoVerify = DniSelfie()
 
-@app.get("/")
-async def root():
-    return {"status": "ok", "mensaje": "Servicio de validación DNI funcionando correctamente"}
+# Ruta principal GET que devuelve el archivo HTML
+@app.get("/", response_class=FileResponse)
+async def raiz():
+    # Buscamos el archivo index.html en la misma carpeta
+    ruta_html = os.path.join(os.path.dirname(__file__), "index.html")
+    return FileResponse(ruta_html)
 
 @app.post("/imagenes/")
 async def procesar_imagenes(

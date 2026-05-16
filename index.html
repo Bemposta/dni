@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API de Verificación de Identidad con IA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            max-width: 600px;
+            width: 100%;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 20px;
+        }
+        .logo {
+            max-width: 250px;
+            height: auto;
+        }
+        h1 {
+            color: #1a73e8;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        h3 {
+            margin-top: 0;
+            color: #202124;
+        }
+        .status-badge {
+            background-color: #e6f4ea;
+            color: #137333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 14px;
+        }
+        code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #db4437;
+        }
+        .box {
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .instruction-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1a73e8;
+        }
+        .test-box {
+            background-color: #fcf8e3;
+            border-left: 4px solid #f0ad4e;
+        }
+        .response-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #34a853;
+        }
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .parameter-name {
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        .btn-docs {
+            display: inline-block;
+            background-color: #f0ad4e;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+        .btn-docs:hover {
+            background-color: #ec971f;
+        }
+        pre {
+            background-color: #202124;
+            color: #f1f3f4;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Contenedor del Logo de la Universidad -->
+        <div class="logo-container">
+            <img src="https://ai4hydrop.eu/wp-content/uploads/2023/12/UE_Madrid_Logo_Positive_RGB.png" alt="Logo Universidad" class="logo">
+        </div>
+
+        <h1>Servicio de Verificación de Identidad con IA</h1>
+        <p>Estado del servicio: <span class="status-badge">ONLINE ✅</span></p>
+
+        <!-- Bloque de Petición -->
+        <div class="box instruction-box">
+            <h3>Instrucciones de la Petición (Request)</h3>
+            <p>Realiza una petición HTTP de tipo <code>POST</code> hacia el siguiente endpoint:</p>
+            <p><strong>Ruta:</strong> <code>/imagenes/</code></p>
+
+            <p><strong>Parámetros requeridos (form-data):</strong></p>
+            <ul>
+                <li>
+                    <code class="parameter-name">fotoDni</code>:
+                    <span>Imagen correspondiente al documento de identidad.</span>
+                </li>
+                <li>
+                    <code class="parameter-name">imgSlf</code>:
+                    <span>Fotografía tipo "selfie" del usuario.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Bloque de Test -->
+        <div class="box test-box">
+            <h3>Pruebas Rápidas (Interactive Test)</h3>
+            <p>¿Quieres probar la API directamente desde tu navegador sin usar código ni Postman?</p>
+            <p>FastAPI autogenera una documentación interactiva (Swagger UI) donde puedes cargar tus imágenes y ejecutar el endpoint en tiempo real.</p>
+            <a href="/docs" class="btn-docs" target="_blank">Ir al panel de pruebas (/docs)</a>
+        </div>
+
+        <!-- Bloque de Respuestas -->
+        <div class="box response-box">
+            <h3>Estructura de la Respuesta (Response)</h3>
+
+            <p><strong>🟢 Si el proceso es correcto (HTTP 200):</strong></p>
+            <p>El servidor no responderá con texto ni JSON. Devolverá directamente un flujo de datos binarios correspondiente a la imagen resultante optimizada.</p>
+            <p>Cabecera devuelta: <code>Content-Type: image/webp</code></p>
+
+            <p><strong>🔴 Si ocurre un error (HTTP 400 / 500):</strong></p>
+            <p>El servidor devolverá un objeto JSON indicando el fallo del procesamiento:</p>
+            <pre>{
+  "error": "No se pudo codificar la imagen"
+}</pre>
+        </div>
+    </div>
+</body>
+</html>
