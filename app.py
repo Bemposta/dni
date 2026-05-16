@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, Response
+from fastapi.responses import FileResponse
 import cv2
 from validacionDni import DetectorDni, DniSelfie
 import numpy as np
