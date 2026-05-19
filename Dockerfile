@@ -1,7 +1,11 @@
 FROM ultralytics/ultralytics:latest
 
+RUN apt-get update && apt-get install -y wget
+
 RUN mkdir -p /root/.deepface/weights/
-COPY pesos/facenet512_weights.h5 /root/.deepface/weights/facenet512_weights.h5
+COPY pesos/*.h5 /root/.deepface/weights/
+COPY pesos/*.pth /root/.deepface/weights/
+RUN wget -q -P /root/.deepface/weights/ https://github.com/serengil/deepface_models/releases/download/v1.0/retinaface.h5
 
 WORKDIR /app
 
