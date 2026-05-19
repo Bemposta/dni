@@ -187,7 +187,7 @@ class DniSelfie:
                 img1_path = self.imagenDNI,
                 img2_path = self.imagenSelfie,
                 model_name = self.modeloRedpname,
-                enforce_detection = False
+                enforce_detection = True
             )
         except ValueError as e:
             print(f"Error: No se detectó ningún rostro. Por favor, mire a la cámara. {e}")
@@ -196,6 +196,43 @@ class DniSelfie:
             print(f"Error inesperado: {e}")
             return False
         return self.coincidencia["verified"]
+
+    # ************************************************************************************************
+    def verirySpoofing(self, imgSelfie):
+
+        try:
+            # Analizamos cada frame manualmente para aplicar anti_spoofing
+            results = DeepFace.extract_faces(
+                img_path=imgSelfie,
+                detector_backend='retinaface',
+                anti_spoofing=True,
+                enforce_detection=True
+            )
+
+            for face in results:
+                x, y, w, h = [face["facial_area"][k] for k in ('x', 'y', 'w', 'h')]
+                left_eye, right_eye = [face["facial_area"][k] for k in ('left_eye', 'right_eye')]
+                is_real = face.get("is_real", False)
+                color = (0, 255, 0) if is_real else (0, 0, 255)  # Verde si es real, Rojo si es falso
+                label = "REAL" if is_real else "FAKE / SPOOF"
+
+                cv2.rectangle(imgSelfie, (x, y), (x + w, y + h), color, 2)
+                cv2.circle(imgSelfie, left_eye, 5, color, 2)
+                cv2.circle(imgSelfie, right_eye, 5, color, 2)
+                cv2.putText(imgSelfie, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+        except ValueError as e:
+            print(f"Error: No se detectó ningún rostro. Por favor, mire a la cámara. {e}")
+            return False, None
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+            return False, None
+
+        print("Spoofing:", results[0]['is_real'], results[0]['confidence'], results[0]['antispoof_score'])
+
+        if len(results) == 1:
+            return True, imgSelfie
+
+        return False, imgSelfie
 
     # ************************************************************************************************
     def createCoparacionImg(self):
